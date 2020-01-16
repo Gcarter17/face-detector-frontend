@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Navigation from './Components/Navigation/Navigation'
-import Logo from './Components/Logo/Logo'
+// import Logo from './Components/Logo/Logo'
 import ImageLinkForm from './Components/ImageLinkForm/ImageLinkForm'
 import Rank from './Components/Rank/Rank'
 import FaceRecog from './Components/FaceRecog/FaceRecog'
@@ -11,26 +11,27 @@ import './App.css';
 import Clarifai from 'clarifai'
 
 // https://samples.clarifai.com/face-det.jpg
-const app = new Clarifai.App({
-  apiKey: 'ada3f2cb8b004417988b6634aa04cc6c'
-})
+// const app = new Clarifai.App({
+//   apiKey: 'key'
+// })
+
+const initialState = {
+  input: '',
+  imageUrl: '',
+  box: {},
+  route: 'signIn',
+  isSignedIn: false,
+  user: {
+    id: '',
+    name: '',
+    email: '',
+    entries: 0,
+    joined: ''
+  }
+}
 
 class App extends Component {
-  state = {
-    input: '',
-    imageUrl: '',
-    box: {},
-    route: 'signIn',
-    isSignedIn: false,
-    user: {
-      id: '',
-      name: '',
-      email: '',
-      entries: 0,
-      joined: ''
-    }
-  }
-
+  state = initialState;
   // componentDidMount() {
   //   fetch('http://localhost:3000')
   //   .then(response => response.json())
@@ -60,35 +61,41 @@ class App extends Component {
 
   onSubmit = () => {
     this.setState({imageUrl: this.state.input})
-    app.models
-    .predict(
-      Clarifai.FACE_DETECT_MODEL, this.state.input
-    )
-    .then(response => {
-      if (response) {
-      fetch('http://localhost:3000/image', {
-        method: 'put',
+      fetch('http://localhost:3000/imageurl', {
+        method: 'post',
         headers: {'Content-Type': 'application/json'},
-        body:JSON.stringify({
-          id: this.state.user.id
+        body: JSON.stringify({
+          input: this.state.input
         })
       })
       .then(response => response.json())
+      .then(response => {
+        if (response) {
+          fetch('http://localhost:3000/image', {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify({
+              id: this.state.user.id
+            })
+          })
+      .then(response => response.json())
       .then(count =>{
         this.setState(Object.assign(this.state.user, {entries: count}))
+      })
+      .catch(err => {
+        console.log(err)
       })  
       }
       this.displayFaceBox(this.calculateFaceLocation(response)) 
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err, "error"))
     document.getElementById('bounding-box').setAttribute("class", "bounding-box")
   }
 
   onRouteChange = (route) => {
-    if (route === 'signout') {
-      this.setState({isSignedIn: false})
-    } else if (route === 'signIn') {
-      this.setState({isSignedIn: false})
+    if (route === 'signIn') {
+      this.setState(initialState)
+    
     } else if (route === 'Home') {
       this.setState({isSignedIn: true})
     }
@@ -117,9 +124,12 @@ class App extends Component {
       return (
         <div className="App">
           <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/>
-          <Logo/>
+          {/* <Logo/> */}
+          <div className='box-wrapper fit'>
           <Rank name={this.state.user.name} entries={this.state.user.entries}/>
           <ImageLinkForm onInputChange={this.onInputChange} onSubmit={this.onSubmit}/>
+          </div>
+          
           <FaceRecog box={this.state.box} imageUrl={this.state.imageUrl}/>
         </div>
       )

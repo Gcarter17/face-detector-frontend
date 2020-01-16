@@ -6,10 +6,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(90deg, rgba(121,9,107,1) 0%, rgba(0,179,215,1) 100%);
 
-  background-repeat: no-repeat;
-  height: 1600px;
+  /* background: linear-gradient(90deg, rgba(121,9,107,1) 0%, rgba(0,179,215,1) 100%);*/
+  background-image: url(./assets/street-crossing.jpg); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  /* height: 500px; */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; 
 }
 
 code {

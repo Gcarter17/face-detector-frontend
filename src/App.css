@@ -20,3 +20,18 @@
 .App-link {
   color: #09d3ac;
 }
+
+.box-wrapper {
+  background: rgba(255, 255, 255, .8);
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.box-wrapper > p {
+  display: inline;
+}
+
+.fit {
+  width: 750px;
+  margin: 0 auto;
+}
