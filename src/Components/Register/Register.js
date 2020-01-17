@@ -21,7 +21,7 @@ class Register extends Component {
     }
 
     onSubmitSignin = () => {
-        fetch('http://localhost:3000/register', {
+        fetch('https://young-ridge-43446.herokuapp.com/register', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -56,7 +56,7 @@ class Register extends Component {
                         <legend className="f4 fw6 ph0 mh0">Register</legend>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
-                            <input onChange={this.onNameChange}className="pa2 input-reset ba bg-transparent w-100" type="Name" name="Name"  id="name"/>
+                            <input style={{width: '420px'}} onChange={this.onNameChange}className="pa2 input-reset ba bg-transparent" type="Name" name="Name"  id="name"/>
                         </div>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
@@ -64,7 +64,7 @@ class Register extends Component {
                         </div>
                         <div className="mv3">
                             <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                            <input onChange={this.onPasswordChange} className="b pa2 input-reset ba bg-transparent hover-bg-black w-100" type="password" name="password"  id="password" />
+                            <input onChange={this.onPasswordChange} className="b pa2 input-reset ba bg-transparent w-100" type="password" name="password"  id="password" />
                         </div>
                         </fieldset>
                         <div className="">

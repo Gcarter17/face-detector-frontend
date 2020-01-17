@@ -1,6 +1,8 @@
 import React from 'react'
 
 const Rank = ({name, entries}) => {
+    console.log(entries)
+
     return (
         <div>
             <div className='black f3'>
