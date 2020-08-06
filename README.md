@@ -1,7 +1,7 @@
 # Face Detector (frontend)
 make sure to check out my [hosted demo](https://carter-face-detector-app.herokuapp.com/) (may take up to 20 seconds to initally load page)
 
-also, find the backed code [here](https://github.com/Gcarter17/face-detector-backend)
+also, find the backend code [here](https://github.com/Gcarter17/face-detector-backend)
 
 ## Features
 * React frontend
